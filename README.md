@@ -17,6 +17,7 @@
 2. immutable ledger(不可变账本)
 3. transaction(交易)
 4. nonce(Number once)
+5. Genesys Block(创世模块)
 
 ## 名词解释
 1. Ledger: A collection of financial accounts or transactions.
@@ -25,3 +26,4 @@
 4. Nonce: Number used once或Number once的缩写，在密码学中Nonce是一个只被使用一次的任意或非重复的随机数值.
 
 ## 引用
+1. [log4js文档](https://log4js-node.github.io/log4js-node/)
