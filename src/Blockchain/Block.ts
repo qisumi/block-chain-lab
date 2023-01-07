@@ -7,5 +7,4 @@ export interface Block {
     nonce: number,
     previousBlockHash: string,
     hash: string
-
 }
