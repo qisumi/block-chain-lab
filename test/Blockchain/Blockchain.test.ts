@@ -3,6 +3,7 @@ import { test, expect, beforeAll, jest, afterAll } from '@jest/globals'
 import Mock from 'mockjs'
 import { Transaction } from "../../src/Blockchain/Transaction";
 import { testLogger } from "../../src/logger/Logger";
+import { BlockData } from "../../src/Blockchain/BlockData";
 
 let Random: Mock.MockjsRandom;
 beforeAll(() => {
@@ -31,12 +32,12 @@ test(
         const prevHash: string = Random.string(10);
         const hash: string = Random.string(10);
         bitcoin.createNewBlock(2389, prevHash, hash);
-        expect(bitcoin.chain.length).toEqual(1);
-        expect(bitcoin.chain[0].nonce).toEqual(2389);
-        expect(bitcoin.chain[0].hash).toEqual(hash);
-        expect(bitcoin.chain[0].previousBlockHash).toEqual(prevHash);
-        expect(bitcoin.chain[0].index).toEqual(1);
-        expect(bitcoin.chain[0].timestamp).toEqual(jest.now());
+        expect(bitcoin.chain.length).toEqual(2);
+        expect(bitcoin.chain[1].nonce).toEqual(2389);
+        expect(bitcoin.chain[1].hash).toEqual(hash);
+        expect(bitcoin.chain[1].previousBlockHash).toEqual(prevHash);
+        expect(bitcoin.chain[1].index).toEqual(2);
+        expect(bitcoin.chain[1].timestamp).toEqual(jest.now());
     }
 )
 
@@ -50,7 +51,7 @@ test(
         bitcoin.createNewBlock(2389, hash0, hash1);
         bitcoin.createNewBlock(2389, hash1, hash2);
         bitcoin.createNewBlock(2389, hash2, hash3);
-        expect(bitcoin.chain.length).toEqual(3);
+        expect(bitcoin.chain.length).toEqual(4);
     }
 )
 
@@ -71,18 +72,21 @@ test(
     'test for hashBlock method', () => {
         const bitcoin: Blockchain = new Blockchain();
         const prevBlockHash: string = 'AJKLSDFAJSDYANWEF';
-        const currentBlockData: Transaction[] = [
-            {
-                amount: 10,
-                sender: 'KASHJDKHFLQNQWJ',
-                recipient: 'JOIFBQLSQNMWEJ'
-            },
-            {
-                amount: 20,
-                sender: 'KASHJDKHFLQNQWJ',
-                recipient: 'JOIFBQLSQNMWEJ'
-            }
-        ]
+        const currentBlockData: BlockData = {
+            transactions: [
+                {
+                    amount: 10,
+                    sender: 'KASHJDKHFLQNQWJ',
+                    recipient: 'JOIFBQLSQNMWEJ'
+                },
+                {
+                    amount: 20,
+                    sender: 'KASHJDKHFLQNQWJ',
+                    recipient: 'JOIFBQLSQNMWEJ'
+                }
+            ],
+            index: 1
+        }
         const nonce: number = 100;
         const hash = bitcoin.hashBlock(prevBlockHash, currentBlockData, nonce);
         testLogger.debug(hash);
@@ -93,18 +97,21 @@ test(
     'test proofOfWork method', () => {
         const bitcoin: Blockchain = new Blockchain();
         const prevBlockHash: string = 'AJKLSDFAJSDYANWEF';
-        const currentBlockData: Transaction[] = [
-            {
-                amount: 10,
-                sender: 'KASHJDKHFLQNQWJ',
-                recipient: 'JOIFBQLSQNMWEJ'
-            },
-            {
-                amount: 20,
-                sender: 'KASHJDKHFLQNQWJ',
-                recipient: 'JOIFBQLSQNMWEJ'
-            }
-        ]
+        const currentBlockData: BlockData = {
+            transactions: [
+                {
+                    amount: 10,
+                    sender: 'KASHJDKHFLQNQWJ',
+                    recipient: 'JOIFBQLSQNMWEJ'
+                },
+                {
+                    amount: 20,
+                    sender: 'KASHJDKHFLQNQWJ',
+                    recipient: 'JOIFBQLSQNMWEJ'
+                }
+            ],
+            index: 1
+        }
         const nonce = bitcoin.proofOfWork(prevBlockHash, currentBlockData);
         testLogger.debug(`test proofOfWork mthod, nonce: ${nonce}`);
         const hash = bitcoin.hashBlock(prevBlockHash, currentBlockData, nonce)

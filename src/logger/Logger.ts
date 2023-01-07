@@ -12,17 +12,35 @@ log4js.configure({
             keepFileExt: true,
             // alwaysIncludePattern: true
         },
+        server_file: {
+            type: "file",
+            filename: "log/server.log",
+            pattern: 'yyyy-MM-dd',
+            maxLogSize: '5M',
+            backups: 2,
+            compress: false,
+            keepFileExt: true,
+            // alwaysIncludePattern: true
+        },
+        server_console: {
+            type: "stdout"
+        }
     },
     categories: {
-        default:{
-            appenders: ["test"],
+        default: {
+            appenders: ["server_console"],
             level: "debug"
         },
         test: {
             appenders: ["test"],
             level: "debug"
         },
+        server: {
+            appenders: ["server_file", "server_console"],
+            level: "trace"
+        }
     },
 })
 
 export const testLogger = log4js.getLogger('test');
+export const serverLogger = log4js.getLogger('server');
