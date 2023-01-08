@@ -1,6 +1,6 @@
 import { Block } from "./Block";
 import { Transaction } from "./Transaction";
-import { createHash } from "crypto";
+import { createHash, randomUUID } from "crypto";
 import { BlockData } from "./BlockData";
 
 const nodeUrl = process.argv[3];
@@ -10,7 +10,7 @@ export class Blockchain {
     pendingTransactions: Transaction[]
     currentNodeUrl: string
     networkNodes: Set<string>
-    
+
     constructor() {
         this.chain = [];
         this.pendingTransactions = [];
@@ -43,15 +43,20 @@ export class Blockchain {
 
     /**
      * 
-     * @returns the index of block that transaction to be pushed
+     * @returns the transaction created
      */
-    createNewTransaction(amount: number, sender: string, recipient: string): number {
-        const newTransaction: Transaction = {
+    createNewTransaction(amount: number, sender: string, recipient: string): Transaction {
+        return {
             amount: amount,
             sender: sender,
-            recipient: recipient
+            recipient: recipient,
+            transactionId: randomUUID().split('-').join('')
         }
-        this.pendingTransactions.push(newTransaction);
+        
+    }
+
+    addTransactiionToPending(transaction: Transaction) :number{
+        this.pendingTransactions.push(transaction);
         return this.getLastBlock().index + 1;
     }
 

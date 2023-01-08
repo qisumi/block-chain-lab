@@ -27,6 +27,13 @@ const Qcoin: Blockchain = (() => {
     return chain;
 })()
 
+function syncDb():void {
+    db.set('chain', Qcoin.chain);
+    db.set('pendingTransactions', Qcoin.pendingTransactions);
+    db.set('networkNodes', [...Qcoin.networkNodes])
+    db.sync()
+} 
+
 const nodeAddress: string = (() => {
     if (db.has('nodeAddress')) {
         return db.get('nodeAddress')
@@ -37,4 +44,4 @@ const nodeAddress: string = (() => {
     }
 })();
 
-export { Qcoin, nodeAddress, db }
+export { Qcoin, nodeAddress, db, syncDb }

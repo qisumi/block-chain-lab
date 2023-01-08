@@ -1,15 +1,16 @@
 import express, { Router } from "express";
 import fetch, { Response } from "node-fetch";
 import { Blockchain } from "../Blockchain/Blockchain";
-import { Qcoin } from "../Blockchain/Qcoin";
+import { Qcoin, syncDb } from "../Blockchain/Qcoin";
 import { serverLogger } from "../logger/Logger";
 
 const networkApi: Router = express.Router()
 
 // register a node and broadcast it the network
 networkApi.put('/register-and-broadcast-node', async (req, res) => {
-    serverLogger.info(`broadcast api called`)
     const { newNodeUrl } = req.body;
+    serverLogger.info(`broadcast api called ${newNodeUrl}`)
+
     let regNodePromises: Promise<Response>[] = [];
     Qcoin.networkNodes.forEach(networkNodeUrl => {
         regNodePromises.push(fetch(networkNodeUrl + '/register-node', {
@@ -17,7 +18,7 @@ networkApi.put('/register-and-broadcast-node', async (req, res) => {
             body: JSON.stringify({
                 newNodeUrl: newNodeUrl
             }),
-            headers:{
+            headers: {
                 'Content-Type': 'application/json'
             }
         }
@@ -33,7 +34,7 @@ networkApi.put('/register-and-broadcast-node', async (req, res) => {
                 body: JSON.stringify({
                     allNetworkNodes: [...allNetworkNodes]
                 }),
-                headers:{
+                headers: {
                     'Content-Type': 'application/json'
                 }
             })
@@ -44,13 +45,14 @@ networkApi.put('/register-and-broadcast-node', async (req, res) => {
             res.json({
                 note: "New node registered with network successfully."
             })
+            syncDb()
         })
 })
 
 // register a node with the network
 networkApi.put('/register-node', (req, res) => {
-    serverLogger.info(`register api called`)
     const { newNodeUrl } = req.body;
+    serverLogger.info(`register api called ${newNodeUrl}`)
     if (Qcoin.currentNodeUrl === newNodeUrl) {
         res.json({
             node: "invalid url."
@@ -61,6 +63,7 @@ networkApi.put('/register-node', (req, res) => {
     res.json({
         note: "New node registered successfully with node."
     })
+    syncDb()
 })
 
 // register multiple nodes at once
@@ -74,6 +77,7 @@ networkApi.put('/register-nodes-bulk', (req, res) => {
     res.json({
         note: "register nodes bulk successfully"
     })
+    syncDb()
 })
 
 export { networkApi }

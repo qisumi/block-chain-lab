@@ -3,7 +3,7 @@ import { serverLogger } from '../logger/Logger';
 import { randomUUID } from 'crypto';
 import { nodeApi } from './nodeApi';
 import { networkApi } from './networkApi';
-import { db, Qcoin } from '../Blockchain/Qcoin';
+import { db } from '../Blockchain/Qcoin';
 
 const app = express();
 app.use(express.json());
@@ -29,14 +29,6 @@ app.get('/', (req, res) => {
 app.use(nodeApi)
 
 app.use(networkApi)
-
-app.use((req, res, next) => {
-    db.set('chain', Qcoin.chain);
-    db.set('pendingTransactions', Qcoin.pendingTransactions);
-    db.set('networkNodes', [...Qcoin.networkNodes])
-    db.sync()
-    next()
-})
 
 app.listen(port, () => {
     serverLogger.info(`server start at http://localhost:${port}`);

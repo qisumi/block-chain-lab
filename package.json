@@ -10,7 +10,7 @@
     "serve_1": "nodemon --watch src/**/*.ts --exec \"ts-node\" src/api/networkNode.ts 3001 http://localhost:3001",
     "serve_2": "nodemon --watch src/**/*.ts --exec \"ts-node\" src/api/networkNode.ts 3002 http://localhost:3002",
     "serve_3": "nodemon --watch src/**/*.ts --exec \"ts-node\" src/api/networkNode.ts 3003 http://localhost:3003",
-    "serve_4": "nodemon --watch src/**/*.ts --exec \"ts-node\" src/api/networkNode.ts 3003 http://localhost:3004",
+    "serve_4": "nodemon --watch src/**/*.ts --exec \"ts-node\" src/api/networkNode.ts 3004 http://localhost:3004",
     "run_build": "node build/src/api/networkNode.ts 3000 http://localhost:3000"
   },
   "keywords": [],
