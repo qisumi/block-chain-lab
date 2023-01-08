@@ -2,19 +2,25 @@
   "compilerOptions": {
     // 只编译修改过的文件,这个时候会生成tsconfig.tsbuildinfo,下次编译的时候会进行对比只编译修改过的文件
     "incremental": true,
-    "module": "CommonJS",
-    "target": "es5",
+    "module": "ES6",
+    "target": "ES6",
     "sourceMap": true,
     //  outDir 编译后的文件存到到哪个目录下,默认是每一个ts文件的当前目录,,下面的配置就是把ts编译到build目录下
     "outDir": "./build",
     "moduleResolution": "node",
     "lib": [
-      "es2015"
+      "ES6"
     ],
     "esModuleInterop": true
   },
   "exclude": [
     "node_modules",
-    "test"
-  ]
+    "test",
+    "coverage",
+    "db"
+  ],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }

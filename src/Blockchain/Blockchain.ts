@@ -8,14 +8,14 @@ const nodeUrl = process.argv[3];
 export class Blockchain {
     chain: Block[]
     pendingTransactions: Transaction[]
-    nodeUrl: string
+    currentNodeUrl: string
     networkNodes: Set<string>
     
     constructor() {
         this.chain = [];
         this.pendingTransactions = [];
-        this.nodeUrl = nodeUrl;
-        this.networkNodes = new Set<string>;
+        this.currentNodeUrl = nodeUrl;
+        this.networkNodes = new Set();
         this.createNewBlock(100, '0', 'QISUMI');
     }
 

@@ -46,3 +46,4 @@
 
 ### 实现方面
 1. 在 Blockchain.ts 中，使用 Set 代替数组来实现 networkNodes，获得更好的性能
+2. 部分接口使用 put 代替 post, 这是由于 put 包含了幂等性的语义

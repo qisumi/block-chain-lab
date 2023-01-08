@@ -1,6 +1,5 @@
 import express from 'express'
 import { serverLogger } from '../logger/Logger';
-import { Blockchain } from '../Blockchain/Blockchain';
 import { randomUUID } from 'crypto';
 import { nodeApi } from './nodeApi';
 import { networkApi } from './networkApi';
@@ -11,18 +10,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 const port = process.argv[2];
-
-const Qcoin: Blockchain = (() => {
-    const chain = new Blockchain();
-    if (db.has('chain') && db.has('pendingTransactions')) {
-        chain.chain = db.get('chain');
-        chain.pendingTransactions = db.get('pendingTransactions');
-    } else {
-        db.set('chain', chain.chain);
-        db.set('pendingTransactions', chain.pendingTransactions);
-    }
-    return chain;
-})()
 
 const nodeAddress: string = (() => {
     if (db.has('nodeAddress')) {

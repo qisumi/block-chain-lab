@@ -20,15 +20,15 @@ const Qcoin: Blockchain = (() => {
     }
 
     if (db.has('networkNodes')) {
-        chain.networkNodes = db.get('networkNodes');
+        chain.networkNodes = new Set(db.get('networkNodes'));
     } else {
-        db.set('networkNodes', chain.networkNodes);
+        db.set('networkNodes', [...chain.networkNodes]);
     }
 
     if (db.has('nodeUrl')) {
-        chain.nodeUrl = db.get('nodeUrl')
+        chain.currentNodeUrl = db.get('nodeUrl')
     } else {
-        db.set('nodeUrl', chain.nodeUrl)
+        db.set('nodeUrl', chain.currentNodeUrl)
     }
     return chain;
 })()

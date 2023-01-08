@@ -9,7 +9,7 @@ const nodeApi: Router = express.Router()
 // fetch entire blockchain
 nodeApi.get('/blockchain', function (req, res) {
     serverLogger.info('api called: /blockchain')
-    res.send(Qcoin);
+    res.send({ Qcoin, networkNodes: [...Qcoin.networkNodes] });
 })
 
 // create a new transaction
