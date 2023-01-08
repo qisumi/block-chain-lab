@@ -1,5 +1,5 @@
 import log4js from "log4js";
-
+const port = process.argv[2];
 log4js.configure({
     appenders: {
         test: {
@@ -14,7 +14,7 @@ log4js.configure({
         },
         server_file: {
             type: "file",
-            filename: "log/server.log",
+            filename: `log/server-${port}.log`,
             pattern: 'yyyy-MM-dd',
             maxLogSize: '5M',
             backups: 2,

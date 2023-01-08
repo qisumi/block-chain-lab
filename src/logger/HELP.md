@@ -16,6 +16,7 @@
 1. appenders: 设置具体的日志输出形式
 2. categories: 是 appenders 的分组，一个 category 可以接受多个 appender
 3. layouts: 制定了输出日志的格式
+
 ## 一个文件例子
 ```js
 // 这个例子中包含了使用文件储存日志的配置

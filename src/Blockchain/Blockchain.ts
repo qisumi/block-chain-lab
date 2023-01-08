@@ -3,13 +3,19 @@ import { Transaction } from "./Transaction";
 import { createHash } from "crypto";
 import { BlockData } from "./BlockData";
 
+const nodeUrl = process.argv[3];
+
 export class Blockchain {
     chain: Block[]
     pendingTransactions: Transaction[]
-
+    nodeUrl: string
+    networkNodes: Set<string>
+    
     constructor() {
         this.chain = [];
         this.pendingTransactions = [];
+        this.nodeUrl = nodeUrl;
+        this.networkNodes = new Set<string>;
         this.createNewBlock(100, '0', 'QISUMI');
     }
 

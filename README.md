@@ -11,6 +11,11 @@
 5. 实现一个区块浏览器应用
 
 
+## 具体实现
+
+### 如何注册一个新的节点
+ ![注册新节点](assets\how-to-registe-new-node.png)
+
 ## 术语表
 
 1. consensus algorithm(共识算法)
@@ -27,3 +32,17 @@
 
 ## 引用
 1. [log4js文档](https://log4js-node.github.io/log4js-node/)
+
+## fix
+
+### 框架方面
+1. 整体使用 typescript 改写
+2. 对于网络请求的框架，使用 node-fetch 代替，使用了更加现代化的API
+3. 对于 api 构建，将不同的 api 分解到了不同的文件中
+4. 新增了 simple-json-db 来保存链的基本信息
+5. 新增了 log4js 依赖，可以定制丰富的日志行为
+6. 新增了 jest 框架，使得单元测试可以自动化，并且可以得到测试覆盖率
+7. 对于加密算法和 UUID 的实现，使用了 JS 标准库中的 crypto 代替了 uuid, sha256 两个依赖
+
+### 实现方面
+1. 在 Blockchain.ts 中，使用 Set 代替数组来实现 networkNodes，获得更好的性能
