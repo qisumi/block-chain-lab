@@ -3,7 +3,7 @@ import { serverLogger } from '../logger/Logger';
 import { randomUUID } from 'crypto';
 import { nodeApi } from './nodeApi';
 import { networkApi } from './networkApi';
-import { db } from '../Blockchain/Qcoin';
+import { db, Qcoin } from '../Blockchain/Qcoin';
 
 const app = express();
 app.use(express.json());
@@ -30,20 +30,15 @@ app.use(nodeApi)
 
 app.use(networkApi)
 
+app.use((req, res, next) => {
+    db.set('chain', Qcoin.chain);
+    db.set('pendingTransactions', Qcoin.pendingTransactions);
+    db.set('networkNodes', [...Qcoin.networkNodes])
+    db.sync()
+    next()
+})
+
 app.listen(port, () => {
     serverLogger.info(`server start at http://localhost:${port}`);
     serverLogger.info(`uuid: ${nodeAddress}`);
 })
-
-process.on('exit', (code) => {
-    console.log(`server exit with code: ${code}`);
-    db.sync()
-});
-
-process.on('SIGINT', function () {
-    process.exit(1);
-});
-
-process.on('SIGTERM', function () {
-    process.exit(1);
-});

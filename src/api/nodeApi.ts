@@ -18,8 +18,6 @@ nodeApi.put('/transaction', function (req, res) {
     const { amount, sender, recipient } = req.body;
     Qcoin.createNewTransaction(amount, sender, recipient);
     const blockIndex: number = Qcoin.getLastBlock().index + 1;
-    db.set('chain', Qcoin.chain);
-    db.set('pendingTransactions', Qcoin.pendingTransactions);
     res.json({
         note: `Transaction will be added in block ${blockIndex}.`
     });
@@ -42,8 +40,7 @@ nodeApi.get('/mine', function (req, res) {
     Qcoin.createNewTransaction(12.5, "00", nodeAddress);
 
     const newBlock = Qcoin.createNewBlock(nonce, prevBlockHash, hash);
-    db.set('chain', Qcoin.chain);
-    db.set('pendingTransactions', Qcoin.pendingTransactions);
+
     res.json({
         note: "New block mined successfully",
         block: newBlock

@@ -30,10 +30,11 @@
 3. Distributed: not controlled by a single entity.
 4. Nonce: Number used once或Number once的缩写，在密码学中Nonce是一个只被使用一次的任意或非重复的随机数值.
 
-## 引用
-1. [log4js文档](https://log4js-node.github.io/log4js-node/)
-
-## fix
+## 引用的软件包及文献
+1. [log4js(用于完成日志输出和保存功能)](https://log4js-node.github.io/log4js-node/)
+2. [express(用于构建 API)](http://expressjs.com/zh-cn/)
+3. [simple-json-db(用于在节点关机/重启时保存/读取节点数据)](https://github.com/nmaggioni/Simple-JSONdb)
+4. [node-fetch(用于实现节点之间的通信)](https://github.com/node-fetch/node-fetch)
 
 ### 框架方面
 1. 整体使用 typescript 改写
