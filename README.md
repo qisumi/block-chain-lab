@@ -36,6 +36,9 @@
 3. [simple-json-db(用于在节点关机/重启时保存/读取节点数据)](https://github.com/nmaggioni/Simple-JSONdb)
 4. [node-fetch(用于实现节点之间的通信)](https://github.com/node-fetch/node-fetch)
 
+
+## 做出的改进
+
 ### 框架方面
 1. 整体使用 typescript 改写
 2. 对于网络请求的框架，使用 node-fetch 代替，使用了更加现代化的API
@@ -51,3 +54,8 @@
 
 ## TODO
 1. 使用 [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) 代替 Simple-json-db
+2. 改进：挖矿奖励应该放到 /recieve-new-block 接口中验证后加入。
+
+## 存在的问题
+1. 没有验证挖矿奖励 Transaction 合法性的机制
+2. 对于交易并没有验证 sender 是否有足够的余额 [UTXO](https://zhuanlan.zhihu.com/p/79176928)

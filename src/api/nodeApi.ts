@@ -67,17 +67,66 @@ nodeApi.get('/mine', function (req, res) {
     }
     const nonce: number = Qcoin.proofOfWork(prevBlockHash, currentBlockData);
     const hash: string = Qcoin.hashBlock(prevBlockHash, currentBlockData, nonce);
-
-    // sender 00 means it's bonus for miner
-    Qcoin.createNewTransaction(12.5, "00", nodeAddress);
-
     const newBlock = Qcoin.createNewBlock(nonce, prevBlockHash, hash);
+
+    const requestPromises: Promise<Response>[] = [];
+    Qcoin.networkNodes.forEach(networkNodeUrl => {
+        requestPromises.push(fetch(`${networkNodeUrl}/recieve-new-block`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                newBlock: newBlock
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }))
+    })
+
+    Promise.all(requestPromises)
+        .then(data => {
+            // sender 00 means it's bonus for miner
+            //Qcoin.createNewTransaction(12.5, "00", nodeAddress);
+            fetch(Qcoin.currentNodeUrl + '/transaction/broadcast', {
+                method: "post",
+                body: JSON.stringify({
+                    amount: 12.5,
+                    sender: '00',
+                    recipient: nodeAddress
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        })
 
     res.json({
         note: "New block mined successfully",
         block: newBlock
     })
     syncDb()
+})
+
+nodeApi.put('/recieve-new-block', (req, res) => {
+    serverLogger.info('api called: /receive-new-block');
+    const { newBlock } = req.body
+    const lastBlock = Qcoin.getLastBlock();
+    const correctHash = lastBlock.hash === newBlock.previousBlockHash;
+    const correctIndex = lastBlock.index + 1 === newBlock.index;
+    if (correctHash && correctIndex) {
+        serverLogger.info(`new block valid`);
+        Qcoin.chain.push(newBlock);
+        Qcoin.pendingTransactions = [];
+        res.json({
+            note: 'New block received and accepted.',
+            newBlock: newBlock
+        })
+    }else{
+        serverLogger.info(`new block invalid,${lastBlock.hash},${newBlock.previousBlockHash}`);
+        res.json({
+            note: 'New block rejected',
+            newBlock: newBlock
+        })
+    }
 })
 
 export { nodeApi }
