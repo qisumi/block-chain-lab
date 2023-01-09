@@ -14,7 +14,7 @@
 ## 具体实现
 
 ### 如何注册一个新的节点
- ![注册新节点](assets\how-to-registe-new-node.png)
+ ![注册新节点](assets/how-to-registe-new-node.png)
 
 ## 术语表
 
