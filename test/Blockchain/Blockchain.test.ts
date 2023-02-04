@@ -77,12 +77,14 @@ test(
                 {
                     amount: 10,
                     sender: 'KASHJDKHFLQNQWJ',
-                    recipient: 'JOIFBQLSQNMWEJ'
+                    recipient: 'JOIFBQLSQNMWEJ',
+                    transactionId: 'ASKDJHIQFNB'
                 },
                 {
                     amount: 20,
                     sender: 'KASHJDKHFLQNQWJ',
-                    recipient: 'JOIFBQLSQNMWEJ'
+                    recipient: 'JOIFBQLSQNMWEJ',
+                    transactionId: 'ASKDJHIQQAWFNB'
                 }
             ],
             index: 1
@@ -102,12 +104,14 @@ test(
                 {
                     amount: 10,
                     sender: 'KASHJDKHFLQNQWJ',
-                    recipient: 'JOIFBQLSQNMWEJ'
+                    recipient: 'JOIFBQLSQNMWEJ',
+                    transactionId: 'ASKDJHIQFNB'
                 },
                 {
                     amount: 20,
                     sender: 'KASHJDKHFLQNQWJ',
-                    recipient: 'JOIFBQLSQNMWEJ'
+                    recipient: 'JOIFBQLSQNMWEJ',
+                    transactionId: 'ASKDJHIQQAWFNB'
                 }
             ],
             index: 1

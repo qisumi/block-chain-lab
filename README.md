@@ -59,3 +59,4 @@
 ## 存在的问题
 1. 没有验证挖矿奖励 Transaction 合法性的机制
 2. 对于交易并没有验证 sender 是否有足够的余额 [UTXO](https://zhuanlan.zhihu.com/p/79176928)
+3. 目前 Qcoin 没有提供"钱包设定" [私钥、公钥和地址](https://zhuanlan.zhihu.com/p/54296648) [比特币钱包](https://zhuanlan.zhihu.com/p/73569179)
